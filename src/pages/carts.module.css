@@ -1,0 +1,20 @@
+.title {
+    align-items: center;
+    text-align: center;
+    margin-top: 20%;
+}
+
+
+.addContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.addButton {
+    float: right;
+}
+
+.buttonContainer {
+    text-align: center;
+}
+  

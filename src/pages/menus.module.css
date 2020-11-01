@@ -1,0 +1,21 @@
+.summary {
+    align-items: center;
+    text-align: center;
+    margin-top: 90px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.addButton {
+    float: right;
+}
+
+.menuList {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}

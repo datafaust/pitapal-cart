@@ -1,0 +1,19 @@
+.title {
+    align-items: center;
+    text-align: center;
+}
+
+.bodyText {
+    align-items: center;
+    text-align: center;
+}
+
+.sizer {
+    width:70%;
+}
+
+.carousel {
+    width:1400px;
+    margin-left: -13%;
+   
+  }

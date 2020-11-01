@@ -1,0 +1,29 @@
+.items {
+    align-items: center;
+    text-align: center;
+}
+
+.condiment {
+    display: flex;
+    justify-content: space-evenly;
+    padding:10px
+}
+
+.buttonContiner {
+
+}
+
+.condimentsBox {
+  margin-left: 20px;
+}
+
+
+.cards {
+  width: 90%;
+  margin: 20px auto;
+  background: white;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  -webkit-transition:  box-shadow .2s ease-out;
+  box-shadow: .8px .9px 3px grey;
+  display:block;
+}
