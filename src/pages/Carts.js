@@ -17,7 +17,7 @@ class Carts extends Component {
     constructor() {
         super();
         this.state = {
-            carts: '',
+            carts: null,
             showModal: false,
             showMap: false,
             cart_name: '',
@@ -70,7 +70,7 @@ class Carts extends Component {
         let id = auth().currentUser.uid + '1' //+ this.state.cart_name.replace(/ /g, '');
 
         fetch(
-            `${global.api}/addCart?id=${id}&customer_id=${auth().currentUser.uid}&cart_name=${this.state.cart_name}&lat=${this.state.lat}&lon=${this.state.lon}&cart_address=${this.state.cart_address}&active=${this.state.active}&city_id=${this.state.city_id}`,
+            `${global.api}/carts?id=${id}&customer_id=${auth().currentUser.uid}&cart_name=${this.state.cart_name}&lat=${this.state.lat}&lon=${this.state.lon}&cart_address=${this.state.cart_address}&active=${this.state.active}&city_id=${this.state.city_id}`,
             { method: "POST" }
         ).catch((error) => {
             console.log(error)
@@ -81,7 +81,7 @@ class Carts extends Component {
     deleteCart = async (id) => {
         console.log('cart is removed with key...',id);
         await fetch(
-            `${global.api}/deleteCart?id=${id}`,
+            `${global.api}/carts/` + id,
             { method: "DELETE" }
         ).catch((error) => {
             console.log(error)
@@ -94,15 +94,16 @@ class Carts extends Component {
 
     //FETCH CARTS
     getCarts = async () => {
-        let response = await fetch(`${global.api}/cart/${auth().currentUser.uid}`)
+        let response = await fetch(`${global.api}/carts/${auth().currentUser.uid}`)
             .then(res => res.json())
             .then(res => {
-                console.log('res', res["data"])
-                return res["data"]
+                console.log('res', res)
+                return res
             })
             .catch((error) => {
                 console.log(error)
             });
+        
         this.setState({ carts: response })
         this.props.setCart( response );
 
@@ -125,7 +126,7 @@ class Carts extends Component {
         if (this.state.carts) {
             carts = (
                 <div>
-                    {
+                    { 
                         this.state.carts.map((cart, i) => {
                             return <div key={i}>
                                 <Cart

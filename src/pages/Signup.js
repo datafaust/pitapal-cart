@@ -57,7 +57,7 @@ export default class SignUp extends Component {
 
     fetch(
       // MUST USE YOUR LOCALHOST ACTUAL IP!!! NOT http://localhost...
-      `${global.api}/addCustomer?fbid=${uid}&customer_name=${this.state.fname + ' ' + this.state.lname}&city_id=${this.state.city_id}&phone=${this.state.phone}&email=${this.state.email}&time_joined=${sqlStamp}`,
+      `${global.api}/customers?fbid=${uid}&customer_name=${this.state.fname + ' ' + this.state.lname}&city_id=${this.state.city_id}&phone=${this.state.phone}&email=${this.state.email}&time_joined=${sqlStamp}`,
       { method: "POST" }
     ).catch((error) => {
       console.log(error)

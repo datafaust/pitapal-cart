@@ -104,8 +104,8 @@ class Menu extends Component {
         let response = await fetch(`${global.api}/mealKey`)
             .then(res => res.json())
             .then(res => {
-                console.log('Meals: ',res["data"])
-                return res["data"]
+                console.log('Meals: ',res)
+                return res
             })
             .catch((error) => {
                 console.log(error)
@@ -119,7 +119,7 @@ class Menu extends Component {
         this.setState({ showMenu: !this.state.showMenu, menuAdded: !this.state.menuAdded });
         let sqlStamp = moment().utcOffset('-0400').format("YYYY-MM-DD HH:mm:ss").substr(0, 18) + '0';
         fetch(
-            `${global.api}/addMenu?cart_id=${this.state.cart_id}&menu_name=${this.state.menu_name}&time_joined=${sqlStamp}`,
+            `${global.api}/menus?cart_id=${this.state.cart_id}&menu_name=${this.state.menu_name}&time_joined=${sqlStamp}`,
             { method: "POST" }
         ).catch((error) => {
             console.log(error)
@@ -227,11 +227,11 @@ class Menu extends Component {
 
     getMenus = async () => {
         console.log('retrieving menus with ...', this.state.cart_id);
-        let response = await fetch(`${global.api}/menu/${this.state.cart_id}`)
+        let response = await fetch(`${global.api}/menus/${this.state.cart_id}`)
             .then(res => res.json())
             .then(res => {
-                console.log('Menu Data',res["data"])
-                return res["data"]
+                console.log('Menu Data',res)
+                return res//["data"]
             })
             .catch((error) => {
                 console.log(error)
@@ -245,13 +245,13 @@ class Menu extends Component {
     getCarts = async () => {
 
         if (this.props.reducer.carts === undefined || this.props.reducer.carts.length == 0 || this.props.reducer.carts == null) {
-            let response = await fetch(`${global.api}/cart/${auth().currentUser.uid}`)
+            let response = await fetch(`${global.api}/carts/${auth().currentUser.uid}`)
                 .then(res => res.json())
                 .then(res => {
-                    console.log('no reducer so retrieving cart data: ', res["data"])
+                    console.log('no reducer so retrieving cart data: ', res)
                     //console.log('id value:', res["data"][0].id)
-                    this.setState({ cart_id: res["data"][0].id })
-                    return res["data"]
+                    this.setState({ cart_id: res[0].id })
+                    return res
                 })
                 .catch((error) => {
                     console.log(error)
@@ -283,7 +283,7 @@ class Menu extends Component {
     deleteMenu = async (id) => {
         console.log('menu is removed with key...', id);
         await fetch(
-            `${global.api}/deleteMenu?id=${id}`,
+            `${global.api}/menus/` + id,
             { method: "DELETE" }
         ).catch((error) => {
             console.log(error)
@@ -408,7 +408,7 @@ class Menu extends Component {
                     {this.state.carts && <Form>
                         <Form.Group controlId="cart_select">
                             <Form.Label>Choose the cart you will customize:</Form.Label>
-                            <Form.Control as="select" value={this.state.carts[0].id.toString()} defaultV={this.state.carts[0].id.toString()} onChange={this.handleCart}>
+                            <Form.Control as="select" value={this.state.carts[0].id.toString()}  onChange={this.handleCart}>
 
                                    {this.state.carts.map((cart,i) => <option key={cart.id} value={cart.id}>{cart.cart_name}</option>)})
                     
